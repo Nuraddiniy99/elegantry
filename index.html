@@ -178,7 +178,7 @@
     }
 
     .section-title {
-      margin-top: 50px;
+      margin-top: -15px;
       margin-bottom: 2.5rem;
       text-align: center;
     }
@@ -243,12 +243,12 @@
     .mobile-logo {
       display: none;                    /* default hidden */
       justify-content: center;
-      margin-bottom: 2.6rem;            /* jarak ke konten bawahnya */
+      margin-bottom: 2rem;            /* jarak ke konten bawahnya */
       padding: 1rem 0;
     }
 
     .mobile-logo img {
-      margin-top: -30px;              /* sedikit naik untuk efek floating */
+      margin-top: -60px;              /* sedikit naik untuk efek floating */
       width: 240px !important;   /* lebih besar lagi */
       height: auto !important;
       max-width: 85vw !important;
@@ -382,6 +382,32 @@
       font-size: 0.85rem;
       color: var(--gray);
       text-align: center;
+    }
+
+    /* Hilangkan scrollbar tapi tetap bisa discroll (cross-browser) */
+    .scrollbar-hide {
+      -ms-overflow-style: none;       /* IE & Edge */
+      scrollbar-width: none;          /* Firefox */
+      margin-bottom: 20px;
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;                  /* Chrome, Safari, Edge baru */
+    }
+
+    /* Styling kapsul aktif */
+    .filter-pill.active {
+      background: rgba(202, 165, 83, 0.25) !important;
+      color: var(--gold-soft) !important;
+      border-color: var(--gold) !important;
+      font-weight: 600;
+    }
+
+    /* Biar lebih mulus saat scroll (opsional) */
+    .snap-x {
+      scroll-snap-type: x mandatory;
+    }
+    .snap-start {
+      scroll-snap-align: start;
     }
 
     .program-tools {
@@ -981,33 +1007,45 @@ body {
   </style>
 </head>
 <body>
-  <header>
-    <div class="nav">
-      <div class="brand">
-        <div class="logo">E</div>
-        <div>
-          <div style="font-size: 18px;">ELEGANTRY</div>
-          <small style="font-size:10px; color: var(--gray); letter-spacing: 0.3em;">TOUR & TRAVEL</small>
+    <header>
+      <div class="nav">
+        <!-- Logo di tengah (desktop + mobile) -->
+        <div class="brand mx-auto flex items-center gap-3">
+          <img src="logo.png" alt="Elegantry Logo" class="h-10 w-auto object-contain md:h-12">
+          <!-- Teks ELEGANTRY hanya muncul di desktop -->
+          <div class="hidden md:block">
+            <div style="font-size: 18px;">ELEGANTRY</div>
+            <small style="font-size:10px; color: var(--gray); letter-spacing: 0.3em;">TOUR & TRAVEL</small>
+          </div>
         </div>
-      </div>
-      <nav class="nav-links">
-        <a href="#beranda" class="nav-link" data-view="beranda">Beranda</a>
-        <a href="#program" class="nav-link" data-view="program">Program</a>
-        <a href="#galeri" class="nav-link" data-view="galeri">Galeri</a>
-        <a href="#about" class="nav-link" data-view="about">About</a>
-        <a href="https://wa.me/6285880856341?text=Halo%20ELEGANTRY%2C%20saya%20ingin%20bertanya%20tentang%20program%20umroh." aria-label="Tanya via WhatsApp">
-          <span class="icon-inline">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="9" />
-              <path d="M12 16h0.01" />
-              <path d="M12 8a3 3 0 0 1 3 3c0 2-3 2-3 4" />
-            </svg>
-          </span>
+
+        <!-- Tombol Konsultasi WA - hanya muncul di mobile -->
+        <a 
+          href="https://wa.me/6285880856341?text=Halo%20ELEGANTRY%2C%20saya%20ingin%20konsultasi%20umroh" 
+          class="cta-btn md:hidden flex items-center gap-2 px-5 py-2.5 text-sm font-semibold shadow-lg"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="fa-brands fa-whatsapp text-lg"></i>
+          Konsultasi
         </a>
-      </nav>
-      <button class="cta-btn" onclick="document.getElementById('kontak').scrollIntoView({behavior:'smooth'})">Konsultasi</button>
-    </div>
-  </header>
+
+        <!-- Nav links & tombol konsultasi desktop tetap ada di desktop -->
+        <nav class="nav-links hidden md:flex gap-6">
+          <a href="#beranda" class="nav-link" data-view="beranda">Beranda</a>
+          <a href="#program" class="nav-link" data-view="program">Program</a>
+          <a href="#galeri" class="nav-link" data-view="galeri">Galeri</a>
+          <a href="#about" class="nav-link" data-view="about">About</a>
+        </nav>
+
+        <button 
+          class="cta-btn hidden md:block"
+          onclick="document.getElementById('kontak').scrollIntoView({behavior:'smooth'})"
+        >
+          Konsultasi
+        </button>
+      </div>
+    </header>
 
   <main>
     <section class="view view-active" id="beranda" data-view="beranda">
@@ -1106,6 +1144,54 @@ body {
           </button>
         </div>
       </div>
+
+      <!-- Filter Kapsul (horizontal scrollable tanpa scrollbar) -->
+      <div class="mt-4 -mx-2 px-2 overflow-x-auto whitespace-nowrap scrollbar-hide snap-x snap-mandatory">
+        <div class="inline-flex gap-2.5 py-1">
+          <button 
+            class="filter-pill px-4 py-1.5 text-sm font-medium rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/30 transition-all snap-start"
+            data-sort="termurah"
+          >
+            Termurah
+          </button>
+
+          <button 
+            class="filter-pill px-4 py-1.5 text-sm font-medium rounded-full bg-white/5 text-gray-300 border border-white/10 hover:bg-white/10 transition-all snap-start"
+            data-sort="termahal"
+          >
+            Termahal
+          </button>
+
+          <button 
+            class="filter-pill px-4 py-1.5 text-sm font-medium rounded-full bg-white/5 text-gray-300 border border-white/10 hover:bg-white/10 transition-all snap-start"
+            data-sort="9hari"
+          >
+            9 Hari
+          </button>
+
+          <button 
+            class="filter-pill px-4 py-1.5 text-sm font-medium rounded-full bg-white/5 text-gray-300 border border-white/10 hover:bg-white/10 transition-all snap-start"
+            data-sort="12hari"
+          >
+            12 Hari
+          </button>
+
+          <button 
+            class="filter-pill px-4 py-1.5 text-sm font-medium rounded-full bg-white/5 text-gray-300 border border-white/10 hover:bg-white/10 transition-all snap-start"
+            data-sort="terlaris"
+          >
+            Terlaris
+          </button>
+
+          <button 
+            class="filter-pill px-4 py-1.5 text-sm font-medium rounded-full bg-white/5 text-gray-300 border border-white/10 hover:bg-white/10 transition-all snap-start"
+            data-sort="terdekat"
+          >
+            Terdekat
+          </button>
+        </div>
+      </div>
+
       <div class="program-grid" id="programGrid"></div>
     </section>
 
@@ -1402,6 +1488,23 @@ const buildProgramCard = (program) => `
   </div>
 `;
 
+// Sorting state
+let currentSort = "termurah"; // atau null
+
+// Event listener untuk semua tombol filter
+document.querySelectorAll('.filter-pill').forEach(btn => {
+  btn.addEventListener('click', () => {
+    // Hapus active dari semua dulu
+    document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+    // Tambah active ke yang diklik
+    btn.classList.add('active');
+
+    currentSort = btn.dataset.sort;
+    renderPrograms(); // panggil ulang render dengan sort baru
+  });
+});
+
+    // Modifikasi fungsi renderPrograms supaya support sorting
     const renderPrograms = () => {
       programGrid.innerHTML = "";
       const nameValue = searchName.value.toLowerCase();
@@ -1410,8 +1513,25 @@ const buildProgramCard = (program) => `
         program.title.toLowerCase().includes(nameValue)
       );
 
+      // Terapkan sorting berdasarkan currentSort
+      if (currentSort === "termurah") {
+        filtered.sort((a, b) => (a.price || 0) - (b.price || 0));
+      } else if (currentSort === "termahal") {
+        filtered.sort((a, b) => (b.price || 0) - (a.price || 0));
+      } else if (currentSort === "9hari") {
+        filtered = filtered.filter(p => p.duration?.toLowerCase().includes("9") || p.duration === "9 Hari");
+      } else if (currentSort === "12hari") {
+        filtered = filtered.filter(p => p.duration?.toLowerCase().includes("12") || p.duration === "12 Hari");
+      } else if (currentSort === "terlaris") {
+        // asumsi ada field popularity atau soldCount
+        filtered.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
+      } else if (currentSort === "terdekat") {
+        // asumsi ada field departureDate → parse jadi Date
+        filtered.sort((a, b) => new Date(a.departure || "9999-12-31") - new Date(b.departure || "9999-12-31"));
+      }
+
       if (!filtered.length) {
-        programGrid.innerHTML = "<p style='color: var(--gray);'>Program belum tersedia untuk pencarian ini.</p>";
+        programGrid.innerHTML = "<p style='color: var(--gray);'>Program belum tersedia untuk filter ini.</p>";
         return;
       }
 
@@ -1422,6 +1542,8 @@ const buildProgramCard = (program) => `
         programGrid.appendChild(card);
       });
     };
+    
+    
 
     const renderHomePrograms = () => {
       homePrograms.innerHTML = "";
