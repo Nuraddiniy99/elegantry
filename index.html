@@ -68,8 +68,8 @@
     .nav {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 1rem 5vw;
+      justify-content: space-between;   /* logo kiri - sisanya kanan */
+      padding: 1.1rem 5vw;
       max-width: 1400px;
       margin: 0 auto;
       gap: 1.5rem;
@@ -77,7 +77,7 @@
 
     .brand {
       display: flex;
-      align-items: center;
+      align-items: left;
       gap: 0.8rem;
       font-weight: 700;
       letter-spacing: 0.1em;
@@ -88,9 +88,6 @@
     .brand .logo {
       width: 42px;
       height: 42px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--gold), var(--gold-soft));
-      display: grid;
       place-items: center;
       color: #1c1405;
       font-weight: 900;
@@ -178,7 +175,7 @@
     }
 
     .section-title {
-      margin-top: -15px;
+      margin-top: 35px;
       margin-bottom: 2.5rem;
       text-align: center;
     }
@@ -196,7 +193,7 @@
     }
 
     .view { display: none; }
-    .view.view-active { display: block; }
+    .view.view-active { display: block; margin-top: -40px; }
 
     .hero {
       padding-top: 0rem;
@@ -248,7 +245,6 @@
     }
 
     .mobile-logo img {
-      margin-top: -60px;              /* sedikit naik untuk efek floating */
       width: 240px !important;   /* lebih besar lagi */
       height: auto !important;
       max-width: 85vw !important;
@@ -1007,45 +1003,41 @@ body {
   </style>
 </head>
 <body>
-    <header>
-      <div class="nav">
-        <!-- Logo di tengah (desktop + mobile) -->
-        <div class="brand mx-auto flex items-center gap-3">
-          <img src="logo.png" alt="Elegantry Logo" class="h-10 w-auto object-contain md:h-12">
-          <!-- Teks ELEGANTRY hanya muncul di desktop -->
-          <div class="hidden md:block">
-            <div style="font-size: 18px;">ELEGANTRY</div>
-            <small style="font-size:10px; color: var(--gray); letter-spacing: 0.3em;">TOUR & TRAVEL</small>
-          </div>
-        </div>
-
-        <!-- Tombol Konsultasi WA - hanya muncul di mobile -->
-        <a 
-          href="https://wa.me/6285880856341?text=Halo%20ELEGANTRY%2C%20saya%20ingin%20konsultasi%20umroh" 
-          class="cta-btn md:hidden flex items-center gap-2 px-5 py-2.5 text-sm font-semibold shadow-lg"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <i class="fa-brands fa-whatsapp text-lg"></i>
-          Konsultasi
-        </a>
-
-        <!-- Nav links & tombol konsultasi desktop tetap ada di desktop -->
-        <nav class="nav-links hidden md:flex gap-6">
-          <a href="#beranda" class="nav-link" data-view="beranda">Beranda</a>
-          <a href="#program" class="nav-link" data-view="program">Program</a>
-          <a href="#galeri" class="nav-link" data-view="galeri">Galeri</a>
-          <a href="#about" class="nav-link" data-view="about">About</a>
-        </nav>
-
-        <button 
-          class="cta-btn hidden md:block"
-          onclick="document.getElementById('kontak').scrollIntoView({behavior:'smooth'})"
-        >
-          Konsultasi
-        </button>
+  <header>
+    <div class="nav">
+      <!-- Logo di pojok kiri (selalu di kiri, baik desktop maupun mobile) -->
+      <div class="brand flex items-center">
+        <img src="logo.png" alt="Elegantry Logo" class="h-10 w-auto object-contain md:h-12">
       </div>
-    </header>
+
+      <!-- Menu navigasi - hanya muncul di desktop -->
+      <nav class="nav-links hidden md:flex items-center gap-8 mx-auto">
+        <a href="#beranda" class="nav-link" data-view="beranda">Beranda</a>
+        <a href="#program" class="nav-link" data-view="program">Program</a>
+        <a href="#galeri" class="nav-link" data-view="galeri">Galeri</a>
+        <a href="#about" class="nav-link" data-view="about">About</a>
+      </nav>
+
+      <!-- Tombol Konsultasi - hanya muncul di desktop -->
+      <button 
+        class="cta-btn hidden md:block px-6 py-3 text-base font-semibold"
+        onclick="document.getElementById('kontak').scrollIntoView({behavior:'smooth'})"
+      >
+        Konsultasi
+      </button>
+
+      <!-- Tombol Konsultasi WA - hanya muncul di mobile, di pojok kanan -->
+      <a 
+        href="https://wa.me/6285880856341?text=Halo%20ELEGANTRY%2C%20saya%20ingin%20konsultasi%20umroh" 
+        class="cta-btn md:hidden flex items-center gap-2 px-5 py-2.5 text-sm font-semibold shadow-lg"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <i class="fa-brands fa-whatsapp text-lg"></i>
+        Konsultasi
+      </a>
+    </div>
+  </header>
 
   <main>
     <section class="view view-active" id="beranda" data-view="beranda">
